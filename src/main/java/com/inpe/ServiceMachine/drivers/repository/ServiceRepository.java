@@ -15,7 +15,7 @@ public abstract class ServiceRepository implements Repository, ServiceOperations
      * Adds a new service to the repository.
      * Implementations of this method should handle the logic for adding a service.
      */
-    public abstract void addService(CreateServiceDTO service);
+    public abstract String addService(CreateServiceDTO service);
 
     /**
      * Purges a service of the repository.

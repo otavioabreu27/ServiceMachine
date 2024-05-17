@@ -46,4 +46,9 @@ public class CreateServiceDTO {
     public void setHealthUrl(String healthUrl) {
         this.healthUrl = healthUrl;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s:%d:%s:%s", this.address, this.port, this.name, this.healthUrl);
+    }
 }

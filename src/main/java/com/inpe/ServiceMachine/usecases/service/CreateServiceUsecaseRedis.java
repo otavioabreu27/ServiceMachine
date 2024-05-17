@@ -1,6 +1,5 @@
 package com.inpe.ServiceMachine.usecases.service;
 
-import com.inpe.ServiceMachine.adapters.gateways.ServiceGateway;
 import com.inpe.ServiceMachine.adapters.gateways.ServiceGatewayRedis;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

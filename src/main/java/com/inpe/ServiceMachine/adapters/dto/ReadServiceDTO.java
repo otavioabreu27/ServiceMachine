@@ -1,7 +1,8 @@
 package com.inpe.ServiceMachine.adapters.dto;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.inpe.ServiceMachine.adapters.enums.ServiceStatus;
-import lombok.Data;
 
 public class ReadServiceDTO {
     private String hash;
@@ -11,7 +12,17 @@ public class ReadServiceDTO {
     private String healthUrl;
     private ServiceStatus status;
 
-    public ReadServiceDTO(String hash, String address, int port, String name, String healthUrl, ServiceStatus status) {
+    public ReadServiceDTO() {
+    }
+
+    @JsonCreator
+    public ReadServiceDTO(
+            @JsonProperty("hash") String hash,
+            @JsonProperty("address") String address,
+            @JsonProperty("port") int port,
+            @JsonProperty("name") String name,
+            @JsonProperty("healthUrl") String healthUrl,
+            @JsonProperty("status") ServiceStatus status) {
         this.hash = hash;
         this.address = address;
         this.port = port;
@@ -20,6 +31,7 @@ public class ReadServiceDTO {
         this.status = status;
     }
 
+    // Getters and setters
     public String getHash() {
         return hash;
     }

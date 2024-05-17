@@ -5,9 +5,10 @@ import com.inpe.ServiceMachine.drivers.repository.ServiceRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.*;
-import java.time.LocalDateTime;
 import java.util.concurrent.TimeUnit;
 
 public class ServiceObserver implements Runnable {
@@ -50,7 +51,7 @@ public class ServiceObserver implements Runnable {
             URL url = new URI(healthUrl).toURL();
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
-            return con.getResponseCode() == HttpURLConnection.HTTP_OK;
+            return (con.getResponseCode() == HttpURLConnection.HTTP_OK && readResponse(con).equals(this.hash));
         } catch (IOException e) {
             return false;
         } catch (URISyntaxException e) {
@@ -66,7 +67,7 @@ public class ServiceObserver implements Runnable {
                 TimeUnit.SECONDS.sleep(5);
                 if (checkServiceAlive()) {
                     repository.updateServiceStatus(hash, name, ServiceStatus.OK);
-                    break;
+                    return;
                 }
                 if (i + 1 == maxRetries) {
                     logger.info("{} - Max retries reached out", String.format("%s:%s", this.name, this.hash));
@@ -80,5 +81,16 @@ public class ServiceObserver implements Runnable {
         repository.updateServiceStatus(hash, name, ServiceStatus.OFF);
         logger.info("{} - Died", String.format("%s:%s", this.name, this.hash));
         stop();
+    }
+
+    private String readResponse(HttpURLConnection con) throws IOException {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()))) {
+            StringBuilder response = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                response.append(line);
+            }
+            return response.toString();
+        }
     }
 }

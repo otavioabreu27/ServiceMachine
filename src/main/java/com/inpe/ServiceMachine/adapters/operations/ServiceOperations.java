@@ -5,7 +5,7 @@ import com.inpe.ServiceMachine.adapters.dto.ReadServiceDTO;
 import com.inpe.ServiceMachine.adapters.enums.ServiceStatus;
 
 public interface ServiceOperations extends Operations {
-    void addService(CreateServiceDTO service);
+    String addService(CreateServiceDTO service);
     ReadServiceDTO removeService(String serviceHash);
     ReadServiceDTO[] getServicesByName(String serviceName);
     ReadServiceDTO[] getServicesByStatus(ServiceStatus serviceStatus);

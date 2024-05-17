@@ -12,18 +12,5 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ServiceMachineApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ServiceMachineApplication.class, args);
-//		ServiceRepositoryRedis repository = new ServiceRepositoryRedis();
-//		ServiceGatewayRedis gateway = new ServiceGatewayRedis(repository);
-//		CreateServiceUsecaseRedis createUsecase = new CreateServiceUsecaseRedis(gateway);
-//
-//		CreateServiceDTO service = new CreateServiceDTO(
-//				"Teste",
-//				2222,
-//				"testenome",
-//				"123",
-//				ServiceStatus.OK
-//		);
-//
-//		createUsecase.create(service);
 	}
 }

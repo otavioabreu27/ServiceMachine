@@ -1,5 +1,7 @@
 package com.inpe.ServiceMachine.adapters.gateways;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.inpe.ServiceMachine.adapters.dto.CreateServiceDTO;
 import com.inpe.ServiceMachine.adapters.dto.ReadServiceDTO;
 import com.inpe.ServiceMachine.adapters.enums.ServiceStatus;
@@ -14,8 +16,8 @@ public abstract class ServiceGateway implements Gateway, ServiceOperations {
     }
 
     @Override
-    public void addService(CreateServiceDTO service) {
-        this.repository.addService(service);
+    public String addService(CreateServiceDTO service) {
+        return this.repository.addService(service);
     }
 
     @Override
@@ -27,6 +29,7 @@ public abstract class ServiceGateway implements Gateway, ServiceOperations {
     public ReadServiceDTO[] getServicesByName(String serviceName) {
         return this.repository.getServicesByName(serviceName);
     }
+
 
     @Override
     public ReadServiceDTO[] getServicesByStatus(ServiceStatus serviceStatus) {
@@ -42,6 +45,7 @@ public abstract class ServiceGateway implements Gateway, ServiceOperations {
     public ReadServiceDTO[] getAllServices() {
         return this.repository.getAllServices();
     }
+
 
     @Override
     public void updateServiceStatus(String serviceHash, String serviceName, ServiceStatus newServiceStatus) {
